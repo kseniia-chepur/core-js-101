@@ -16,3 +16,5 @@ trim_trailing_whitespace = false
 
 [*.json]
 insert_final_newline = false
+
+eslint linebreak-style: ["error", "unix"]

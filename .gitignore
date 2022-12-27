@@ -36,3 +36,5 @@ node_modules
 # Editors crap
 .vscode
 .idea
+
+*.js text eol=lf
