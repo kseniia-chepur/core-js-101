@@ -221,7 +221,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-  return typeof +value === 'number' && isFinite(+value) ? +value : def;
+  return typeof +value === 'number' && Number.isFinite(+value) ? +value : def;
 }
 
 module.exports = {
