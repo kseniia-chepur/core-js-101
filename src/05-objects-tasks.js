@@ -24,7 +24,6 @@ function Rectangle(/* width, height */) {
   throw new Error('Not implemented');
 }
 
-
 /**
  * Returns the JSON representation of specified object
  *
