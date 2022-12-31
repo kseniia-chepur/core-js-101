@@ -236,10 +236,8 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  const arrayMoving = [];
-  // eslint-disable-next-line no-return-assign
-  arr.reduce((a, b, i) => arrayMoving[i] = a + b, 0);
-  return arrayMoving;
+  let sum = 0;
+  return arr.map((item) => sum += item);
 }
 
 /**
@@ -470,8 +468,8 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return Array(end - start + 1).fill().map((_, i) => start + i);
 }
 
 /**
