@@ -27,8 +27,11 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 3 === 0 && num % 5 === 0) return 'FizzBuzz';
+  if (num % 3 === 0) return 'Fizz';
+  if (num % 5 === 0) return 'Buzz';
+  return num;
 }
 
 
@@ -43,8 +46,14 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  let i = 1;
+  let factorial = 1;
+  while (i <= n) {
+    factorial *= i;
+    i += 1;
+  }
+  return factorial;
 }
 
 
@@ -60,8 +69,12 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let sum = 0;
+  for (let i = n1; i <= n2; i += 1) {
+    sum += i;
+  }
+  return sum;
 }
 
 
@@ -164,8 +177,11 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  return str.split('').filter((char) => {
+    if (str.indexOf(char) === str.lastIndexOf(char)) return char;
+    return null;
+  });
 }
 
 
@@ -208,8 +224,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -225,8 +241,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return +[...String(num)].reverse().join('');
 }
 
 
@@ -250,9 +266,24 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+
+function digitalRoot(num) {
+  return [...String(num)].reduce((a, b) => +a + +b, 0);
 }
+
+function isCreditCardNumber(ccn) {
+  const array = [...String(ccn)];
+  const checkDigit = array.splice(-1);
+  const arrayModified = array.reverse().map((item, i) => (i % 2 === 0
+    ? item * 2 : +item));
+  const result = arrayModified.map((item) => {
+    if (item > 9) return digitalRoot(item);
+    return item;
+  })
+    .reduce((a, b) => +a + +b);
+  return +checkDigit === (10 - (result % 10)) % 10;
+}
+
 
 /**
  * Returns the digital root of integer:
@@ -268,8 +299,9 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const sum = [...String(num)].reduce((a, b) => +a + +b, 0);
+  return sum < 10 ? sum : getDigitalRoot(sum);
 }
 
 
@@ -294,8 +326,32 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const brackets = [];
+  for (let i = 0; i < str.length; i += 1) {
+    const bracket = str[i];
+    if (bracket === '{' || bracket === '[' || bracket === '(' || bracket === '<') {
+      brackets.push(bracket);
+    }
+    if (brackets.length === 0) return false;
+    let check;
+    // eslint-disable-next-line default-case
+    switch (bracket) {
+      case '}': check = brackets.pop();
+        if (check === '(' || check === '[' || check === '<') return false;
+        break;
+      case ']': check = brackets.pop();
+        if (check === '(' || check === '{' || check === '<') return false;
+        break;
+      case ')': check = brackets.pop();
+        if (check === '[' || check === '{' || check === '<') return false;
+        break;
+      case '>': check = brackets.pop();
+        if (check === '[' || check === '{' || check === '(') return false;
+        break;
+    }
+  }
+  return brackets.length === 0;
 }
 
 
