@@ -93,8 +93,8 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return a + b > c && a + c > b && b + c > a;
 }
 
 
@@ -130,10 +130,14 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  const x1 = Math.max(rect1.left, rect2.left);
+  const x2 = Math.min(rect1.left + rect1.width, rect2.left + rect2.width);
+  const y1 = Math.max(rect1.top, rect2.top);
+  const y2 = Math.min(rect1.top + rect1.height, rect2.top + rect2.height);
+  if (x1 <= x2 && y1 <= y2) return true;
+  return false;
 }
-
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
@@ -161,12 +165,15 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  if ((point.x - circle.center.x) * (point.x - circle.center.x)
+    + (point.y - circle.center.y) * (point.y - circle.center.y)
+    < (circle.radius * circle.radius)) return true;
+  return false;
 }
 
 
-/**
+/*
  * Returns the first non repeated char in the specified strings otherwise returns null.
  *
  * @param {string} str
@@ -178,10 +185,10 @@ function isInsideCircle(/* circle, point */) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  return str.split('').filter((char) => {
-    if (str.indexOf(char) === str.lastIndexOf(char)) return char;
-    return null;
-  });
+  for (let i = 0; i < str.length; i += 1) {
+    if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) return str[i];
+  }
+  return null;
 }
 
 
@@ -207,8 +214,18 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let result = '';
+  if (isStartIncluded) {
+    result += '[';
+  } else result += '(';
+  if (a < b) {
+    result += `${a}, ${b}`;
+  } else result += `${b}, ${a}`;
+  if (isEndIncluded) {
+    result += ']';
+  } else result += ')';
+  return result;
 }
 
 
@@ -375,8 +392,8 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
