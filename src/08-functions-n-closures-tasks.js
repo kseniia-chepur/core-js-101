@@ -113,6 +113,7 @@ function memoize(func) {
  */
 function retry(func, attempts) {
   return () => {
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       try {
         return func();
