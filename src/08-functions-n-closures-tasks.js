@@ -83,8 +83,16 @@ function getPolynom(...coefs) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  let cachedResult;
+  return () => {
+    if (func) {
+      cachedResult = func();
+      // eslint-disable-next-line no-param-reassign
+      func = null;
+    }
+    return cachedResult;
+  };
 }
 
 
@@ -103,10 +111,20 @@ function memoize(/* func */) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  return () => {
+    while (true) {
+      try {
+        return func();
+      } catch (err) {
+        // eslint-disable-next-line no-plusplus, no-param-reassign
+        if (--attempts < 0) {
+          throw err;
+        }
+      }
+    }
+  };
 }
-
 
 /**
  * Returns the logging wrapper for the specified method,
@@ -131,8 +149,14 @@ function retry(/* func, attempts */) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return function loggingWrapper(...args) {
+    const argsString = JSON.stringify(args).slice(1, -1);
+    logFunc(`${func.name}(${argsString}) starts`);
+    const result = func(...args);
+    logFunc(`${func.name}(${argsString}) ends`);
+    return result;
+  };
 }
 
 
@@ -172,11 +196,8 @@ function partialUsingArguments(fn, ...args1) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-  let count = startFrom;
-  return function idCalculate() {
-    count += 1;
-    return count;
-  };
+  // eslint-disable-next-line no-plusplus, no-param-reassign
+  return () => startFrom++;
 }
 
 

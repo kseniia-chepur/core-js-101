@@ -59,10 +59,8 @@ function getJSON(obj) {
  */
 function fromJSON(proto, json) {
   const jsonParsed = JSON.parse(json);
-  return Object.setPrototypeOf(jsonParsed.prototype, proto.prototype);
-  // jsonParsed.prototype.constructor = jsonParsed;
+  return Object.setPrototypeOf(jsonParsed, proto);
 }
-
 
 /**
  * Css selectors builder
