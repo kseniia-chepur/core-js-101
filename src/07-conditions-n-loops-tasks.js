@@ -439,8 +439,18 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const multiplication = [];
+  for (let i = 0; i < m1.length; i += 1) {
+    multiplication[i] = [];
+    for (let j = 0; j < m1.length; j += 1) {
+      multiplication[i][j] = 0;
+      for (let k = 0; k < m2.length; k += 1) {
+        multiplication[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
+  return multiplication;
 }
 
 
@@ -474,8 +484,24 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if ((position[0][0] === '0' && position[0][1] === '0' && position[0][2] === '0')
+    || (position[1][0] === '0' && position[1][1] === '0' && position[1][2] === '0')
+    || (position[2][0] === '0' && position[2][1] === '0' && position[2][2] === '0')
+    || (position[0][0] === '0' && position[1][0] === '0' && position[2][0] === '0')
+    || (position[0][1] === '0' && position[1][1] === '0' && position[2][1] === '0')
+    || (position[0][2] === '0' && position[1][2] === '0' && position[2][2] === '0')
+    || (position[0][0] === '0' && position[1][1] === '0' && position[2][2] === '0')
+    || (position[0][2] === '0' && position[1][1] === '0' && position[2][0] === '0')) { return '0'; }
+  if ((position[0][0] === 'X' && position[0][1] === 'X' && position[0][2] === 'X')
+    || (position[1][0] === 'X' && position[1][1] === 'X' && position[1][2] === 'X')
+    || (position[2][0] === 'X' && position[2][1] === 'X' && position[2][2] === 'X')
+    || (position[0][0] === 'X' && position[1][0] === 'X' && position[2][0] === 'X')
+    || (position[0][1] === 'X' && position[1][1] === 'X' && position[2][1] === 'X')
+    || (position[0][2] === 'X' && position[1][2] === 'X' && position[2][2] === 'X')
+    || (position[0][0] === 'X' && position[1][1] === 'X' && position[2][2] === 'X')
+    || (position[0][2] === 'X' && position[1][1] === 'X' && position[2][0] === 'X')) { return 'X'; }
+  return undefined;
 }
 
 
